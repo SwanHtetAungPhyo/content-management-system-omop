@@ -3,6 +3,8 @@ name: feature.auth.yml
 on:
   push:
     branches: ["feature/authentication"]
+    paths:
+      - 'backend/services/authentication/**'
   workflow_dispatch:
 
 jobs:
@@ -27,8 +29,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - name: Running the makefile
-        run: cd backend/services/authentication && make dev-all
+      - name: GO dep installation
+        run: go mod tidy
 
+      - name: Building the binary
+        run: go build -o bin/authentication cmd/main.go
 
 
