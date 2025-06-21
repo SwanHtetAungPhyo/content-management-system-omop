@@ -1,8 +1,8 @@
 name: auth
 
 on:
-  push:
-    branches: ["main"]
+  merge_group:
+    branches: ["dev"]
     paths:
       - 'backend/services/authentication/**'
   workflow_dispatch:

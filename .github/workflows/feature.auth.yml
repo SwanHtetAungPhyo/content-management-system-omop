@@ -1,5 +1,5 @@
 # Author: Swan Htet  Aung Phyo
-name: feature.auth.yml
+name: feature.dev.yml
 on:
   push:
     branches: ["feature/authentication"]
