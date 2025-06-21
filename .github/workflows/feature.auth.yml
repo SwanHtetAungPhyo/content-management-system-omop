@@ -30,9 +30,11 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: GO dep installation
+        working-directory: backend/services/authentication
         run: go mod tidy
 
       - name: Building the binary
+        working-directory: backend/services/authentication
         run: go build -o bin/authentication cmd/main.go
 
 
