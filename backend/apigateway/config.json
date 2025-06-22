@@ -1,0 +1,27 @@
+{
+  "port": 8080,
+  "consul_addr": "localhost:8500",
+  "redis_addr": "localhost:6379",
+  "jwt_secret": "",
+  "aws:": true,
+  "routes": [
+    {
+      "path": "/api/users/*",
+      "service": "user-service",
+      "rate_limit": 100,
+      "cache_ttl": 60
+    },
+    {
+      "path": "/api/orders/*",
+      "service": "order-service",
+      "rate_limit": 50,
+      "cache_ttl": 30
+    },
+    {
+      "path": "/api/products/*",
+      "service": "product-service",
+      "rate_limit": 200,
+      "cache_ttl": 300
+    }
+  ]
+}
