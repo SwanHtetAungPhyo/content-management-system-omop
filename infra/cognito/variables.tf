@@ -9,3 +9,10 @@ variable "aws-region" {
   type = string
   description = "AWS region"
 }
+
+
+variable "cognito_user_pool_client" {
+  type = string
+  default = "cms-user-pool-client"
+  description = "Name of the app client"
+}

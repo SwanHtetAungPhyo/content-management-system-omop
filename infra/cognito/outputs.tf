@@ -1,4 +1,8 @@
-output "instance_public_ip" {
-  value = ""                                          # The actual value to be outputted
-  description = "The public IP address of the EC2 instance" # Description of what this output represents
+output "cognito_user_pool_id" {
+  value = aws_cognito_user_pool.swan_user_pool.id
+  description = "User Pool ID: "
+}
+output "cognito_user_pool_client" {
+  value = aws_cognito_user_pool_client.swan_user_pool_client.id
+  description = "User Pool Client : "
 }
