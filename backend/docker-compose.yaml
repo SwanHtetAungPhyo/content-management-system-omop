@@ -1,0 +1,37 @@
+services:
+  gateway:
+    image: swanhtetaungphyo1/apigateway:latest
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    volumes:
+      - "${PWD}/config.json:/root/config.json:ro"
+    depends_on:
+      - consul
+      - redis
+    restart: unless-stopped
+    networks:
+      - gateway-network
+
+  consul:
+    image: hashicorp/consul
+    container_name: consul
+    ports:
+      - "8500:8500"
+    command: consul agent -dev -bind=0.0.0.0 -client=0.0.0.0 -ui
+    networks:
+      - gateway-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - gateway-network
+    restart: unless-stopped
+
+networks:
+  gateway-network:
+    driver: bridge

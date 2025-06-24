@@ -17,7 +17,6 @@ RUN apk --no-cache add ca-certificates tzdata
 
 WORKDIR /root/
 
-# Copy compiled binary
 COPY --from=builder /app/server .
 
 COPY .env .

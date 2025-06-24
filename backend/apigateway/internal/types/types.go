@@ -9,12 +9,20 @@ import (
 	"sync"
 )
 
+const (
+	AWSCOGNITO = "AWS_COGNITO"
+	NORMAL     = "NORMAL"
+)
+
 type (
 	Config struct {
 		Port       int     `json:"port"`
 		ConsulAddr string  `json:"consul_addr"`
 		RedisAddr  string  `json:"redis_addr"`
 		Routes     []Route `json:"routes"`
+		AuthType   string  `json:"auth_type"`
+		JWTSecret  string  `json:"jwt_secret"`
+		AWSJWKS    string  `json:"aws_jwks"`
 	}
 
 	Route struct {
@@ -22,17 +30,20 @@ type (
 		Service   string `json:"service"`
 		RateLimit int    `json:"rate_limit"`
 		CacheTTL  int    `json:"cache_ttl"`
+		Protected bool   `json:"protected"`            // Service-level auth
+		StripPath string `json:"strip_path,omitempty"` // Path to strip before forwarding
 	}
 
 	Gateway struct {
-	App        *fiber.App
-	Consult    *api.Client
-	Redis      *redis.Client
-	Services   sync.Map
-	Config     Config
-	Ctx        context.Context
-	HttpClient *fasthttp.Client
-}
+		App        *fiber.App
+		Consult    *api.Client
+		Redis      *redis.Client
+		Services   sync.Map
+		Config     Config
+		Ctx        context.Context
+		HttpClient *fasthttp.Client
+	}
+
 	CacheData struct {
 		Body       []byte            `json:"body"`
 		Headers    map[string]string `json:"headers"`
